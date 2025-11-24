@@ -1,0 +1,108 @@
+<mat-card class="cardWithShadow theme-card">
+    <mat-card-header>
+        <mat-card-title class="m-b-0">{{ isEditMode ? 'Edit Employee' : 'Add Employee' }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="b-t-1">
+        <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+            <mat-dialog-content>
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>First Name</mat-label>
+                    <input matInput formControlName="firstName" />
+                    <mat-error *ngIf="employeeForm.get('firstName')?.hasError('required')">
+                        First name is required
+                    </mat-error>
+                    <mat-error *ngIf="employeeForm.get('firstName')?.hasError('pattern')">
+                        First name must contain only letters (A-Z, a-z)
+                    </mat-error>
+                    <mat-error *ngIf="employeeForm.get('firstName')?.hasError('maxLength')">
+                        First name must be at most 50 characters
+                    </mat-error>
+                    <mat-error *ngIf="employeeForm.get('firstName')?.hasError('backend')">
+                        {{ employeeForm.get('firstName')?.getError('backend') }}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="lastName" />
+                    <mat-error *ngIf="employeeForm.get('lastName')?.hasError('required')">
+                        Last name is required
+                    </mat-error>
+                    <mat-error *ngIf="employeeForm.get('lastName')?.hasError('pattern')">
+                        Last name must contain only letters (A-Z, a-z)
+                    </mat-error>
+                    <mat-error *ngIf="employeeForm.get('lastName')?.hasError('maxLength')">
+                        Last name must be at most 50 characters
+                    </mat-error>
+                    <mat-error *ngIf="employeeForm.get('lastName')?.hasError('backend')">
+                        {{ employeeForm.get('lastName')?.getError('backend') }}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Email Address</mat-label>
+                    <input matInput formControlName="emailAddress" />
+                    <mat-error *ngIf="employeeForm.get('emailAddress')?.hasError('required')">
+                        Email is required
+                    </mat-error>
+                    <mat-error *ngIf="employeeForm.get('emailAddress')?.hasError('email')">
+                        Email should be valid
+                    </mat-error>
+                    <mat-error *ngIf="employeeForm.get('emailAddress')?.hasError('maxLength')">
+                        Email address must be at most 100 characters
+                    </mat-error>
+                    <mat-error *ngIf="employeeForm.get('emailAddress')?.hasError('backend')">
+                        {{ employeeForm.get('emailAddress')?.getError('backend') }}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Mobile Number</mat-label>
+                    <input matInput formControlName="mobileNumber" />
+                    <mat-error *ngIf="employeeForm.get('mobileNumber')?.hasError('required')">
+                        Mobile number is required
+                    </mat-error>
+                    <mat-error *ngIf="employeeForm.get('mobileNumber')?.hasError('pattern')">
+                        Mobile number must be 7 to 15 digits
+                    </mat-error>
+                    <mat-error *ngIf="employeeForm.get('mobileNumber')?.hasError('maxLength')">
+                        Mobile number must be at most 15 digits
+                    </mat-error>
+                    <mat-error *ngIf="employeeForm.get('mobileNumber')?.hasError('backend')">
+                        {{ employeeForm.get('mobileNumber')?.getError('backend') }}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Department</mat-label>
+                    <input matInput formControlName="department" />
+                    <mat-error *ngIf="employeeForm.get('department')?.hasError('maxLength')">
+                        Department name must be at most 100 characters
+                    </mat-error>
+                    <mat-error *ngIf="employeeForm.get('department')?.hasError('backend')">
+                        {{ employeeForm.get('department')?.getError('backend') }}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Designation</mat-label>
+                    <input matInput formControlName="designation" />
+                    <mat-error *ngIf="employeeForm.get('designation')?.hasError('maxLength')">
+                        Designation must be at most 100 characters
+                    </mat-error>
+                    <mat-error *ngIf="employeeForm.get('designation')?.hasError('backend')">
+                        {{ employeeForm.get('designation')?.getError('backend') }}
+                    </mat-error>
+                </mat-form-field>
+            </mat-dialog-content>
+
+            <mat-dialog-actions align="end">
+                <button mat-button type="button" (click)="onCancel()">Cancel</button>
+                <button mat-flat-button color="primary" type="submit" [disabled]="employeeForm.invalid">
+                    {{ isEditMode ? 'Update' : 'Add' }}
+                </button>
+            </mat-dialog-actions>
+        </form>
+
+    </mat-card-content>
+</mat-card>

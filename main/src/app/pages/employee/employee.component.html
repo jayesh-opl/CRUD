@@ -1,0 +1,68 @@
+<mat-card class="cardWithShadow">
+  <mat-card-content>
+    <mat-card-title>Employees</mat-card-title>
+
+    <mat-form-field>
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyFilter($event)" #input>
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" class="m-20" (click)="openDialog(null)">Add</button>
+
+    <div class="table-responsive">
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="employees" matSort (matSortChange)="onSortChange($event)">
+
+          <ng-container matColumnDef="#">
+            <th mat-header-cell *matHeaderCellDef>#</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ currentPage * pageSize + i + 1 }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let row"> {{getFullName(row)}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="mobileNumber">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Mobile Number </th>
+            <td mat-cell *matCellDef="let row"> {{row.mobileNumber}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="emailAddress">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Email Address </th>
+            <td mat-cell *matCellDef="let row"> {{row.emailAddress}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let row">
+              <div class="d-flex">
+                <div (click)="openDialog(row)" class="cursor-pointer">
+                  <span class="iconify routeIcon w-20px" matListItemIcon
+                    data-icon="solar:pen-new-round-line-duotone"></span>
+                </div>
+                <div (click)="deleteEmployee(row)" class="cursor-pointer">
+                  <span class=" iconify routeIcon w-20px m-l-10" matListItemIcon
+                    data-icon="solar:trash-bin-minimalistic-line-duotone"></span>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <tr class="mat-row text-center" *matNoDataRow>
+            <td class="mat-cell" colspan="5">No Data</td>
+          </tr>
+        </table>
+
+        <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageSizeOptions]="[10, 25, 50, 100]"
+          (page)="onPageChange($event)">
+        </mat-paginator>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
